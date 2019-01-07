@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+    {% load static %}
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+    <title>Escola da Luta</title>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+        <a class="navbar-brand" href="{% url 'index' %}">
+            <i class="fa fa-check"></i> Escola da Luta
+        </a>
+        {% if perms.questoes.add_pergunta %}
+            <!--<a class="nav-link" href="{% url 'pergunta_inserir' %}">Inserir Pergunta
+                <span class="sr-only">(current)</span>
+            </a>-->
+        {% endif %}
+
+        {% if not request.user.is_authenticated %}
+            <ul class="navbar-nav navbar-right">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+            </ul>
+        {% else %}
+            <ul class="nav navbar-nav navbar-right ml-auto">
+                <li class="nav-item dropdown">
+                    <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action"><img src="{{ request.user.perfil.imagem.url }}" class="avatar" alt="Avatar"> {{request.user.perfil.login}} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> Perfil</a></li>
+                        <li class="divider dropdown-divider"></li>
+                         {% if perms.questoes.add_pergunta %}
+                        <li><a href="{% url 'pergunta_inserir' %}" class="dropdown-item"><i class="fa fa-book fa-fw"></i>Pergunta</a></li>
+                        {% endif %}
+                        <li class="divider dropdown-divider"></li>
+                        <li><a href="{% url 'logout' %}" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        {% endif %}
+    </nav>
+
+
+    <div class="content">
+        <div class="container">
+            <br> 
+            {% block content %} 
+            
+            {% endblock %}
+            <br>
+        </div>
+    </div>
+
+
+    <footer id="myFooter">
+        <div class="container">
+           <!-- <div class="row">
+                <div class="col-sm-3">
+                    <h5>Get started</h5>
+                    <ul>
+                        <li>
+                            <a href="#">Home</a>
+                        </li>
+                        <li>
+                            <a href="#">Sign up</a>
+                        </li>
+                        <li>
+                            <a href="#">Downloads</a>
+                        </li>
+                    </ul>
+                </div> -->
+               <!-- <div class="col-sm-3">
+                    <h5>About us</h5>
+                    <ul>
+                        <li>
+                            <a href="#">Company Information</a>
+                        </li>
+                        <li>
+                            <a href="#">Contact us</a>
+                        </li>
+                        <li>
+                            <a href="#">Reviews</a>
+                        </li>
+                    </ul>
+                </div> -->
+            <!--    <div class="col-sm-3">
+                 <h5>Nossa meta</h5>
+                    <p> A Escola da Luta On-line ajuda na preparação do aluno para os exames de faixa futuros e prepara os canditados para se tornarem futuros árbitros. O sistema de ensino é composto de várias questões de múltipla escolha, totalmente atualizado.</p>
+                </div>
+                <div class="col-sm-3 info">
+                    <h5>Sobre</h5>
+                    <p> A Escola da Luta On-line ajuda na preparação do aluno para os exames de faixa futuros e prepara os canditados para se tornarem futuros árbitros. O sistema de ensino é composto de várias questões de múltipla escolha, totalmente atualizado.</p>
+                </div>
+            </div>
+        </div>-->
+        <div class="second-bar">
+            <div class="container">
+                <h2 class="logo">
+                    <a href="#"> LOGO </a>
+                </h2>
+                <div class="social-icons">
+                    <a href="#" class="twitter">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                    <a href="#" class="facebook">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                    <a href="#" class="google">
+                        <i class="fa fa-google-plus"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/popper.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+
+</html>
